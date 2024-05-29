@@ -8,7 +8,7 @@
     "open": "cypress open",
     "test-chrome": "cypress run --browser chrome --headed",
     "dev": "node_modules\\.bin\\cypress run",
-    "dev:mocha-reporter": "npm run dev --reporter mochawesome --reporter-options reportDir=\"result\",overwrite=false,html=false,json=true",
+    "dev:mocha-reporter": "cypress run --reporter mochawesome --reporter-options reportDir=\"result\",overwrite=false,html=false,json=true",
     "merge-report": "mochawesome-merge \"result/*.json\" > index.json",
     "build-report": "npx marge index.json",
     "open-report": "npm run merge-report && npm run build-report && serve mochawesome-report",
