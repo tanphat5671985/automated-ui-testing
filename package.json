@@ -4,13 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "cypress run",
     "open": "cypress open",
     "test-chrome": "cypress run --browser chrome --headed",
     "dev": "node_modules\\.bin\\cypress run",
-    "dev:mocha-reporter": "npm run dev --reporter mochawesome --reporter-options reportDir=\"result\",overwrite=false,html=false,json=true",
+    "dev:mocha-reporter": "cypress run --reporter mochawesome --reporter-options reportDir=\"result\",overwrite=false,html=false,json=true",
     "merge-report": "mochawesome-merge \"result/*.json\" > index.json",
-    "build-report": "marge index.json",
+    "build-report": "npx marge index.json",
     "open-report": "npm run merge-report && npm run build-report && serve mochawesome-report",
     "run-dev": "cypress run --env baseUrl=https://demoblaze.com/ && npm run open-report"
   },
@@ -20,10 +20,12 @@
   "devDependencies": {
     "cypress": "^13.9.0",
     "cypress-cucumber-preprocessor": "^4.3.1",
+    "marge": "^1.0.1",
     "merge": "^2.1.1",
     "mochawesome": "^7.1.3",
     "mochawesome-merge": "^4.3.0",
-    "mochawesome-report-generator": "^6.2.0"
+    "mochawesome-report-generator": "^6.2.0",
+    "serve": "^14.2.3"
   },
   "cypress-cucumber-preprocessor": {
     "nonGlobalStepDefinitions": false,
