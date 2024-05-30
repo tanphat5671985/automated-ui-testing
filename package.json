@@ -10,7 +10,7 @@
     "dev": "node_modules\\.bin\\cypress run",
     "dev:mocha-reporter": "cypress run --reporter mochawesome --reporter-options reportDir=\"result\",overwrite=false,html=false,json=true",
     "merge-report": "mochawesome-merge \"result/*.json\" > index.json",
-    "build-report": "npx marge index.json",
+    "build-report": "marge index.json",
     "open-report": "npm run merge-report && npm run build-report && serve mochawesome-report",
     "run-dev": "cypress run && npm run open-report"
   },
