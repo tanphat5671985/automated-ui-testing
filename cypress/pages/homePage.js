@@ -76,7 +76,7 @@ class homePage {
         const randomIndex = Math.floor(Math.random() * 3)+1;
         cy.log(randomIndex)
         cy.get(CATEGORY_ITEM).eq(randomIndex).then($product => {
-            selectedGroupProduct = $product.text(); // Lưu tên hoặc thông tin của nhóm sản phẩm
+            selectedGroupProduct = $product.text(); // Lưu tên thông tin của nhóm sản phẩm
             cy.wrap($product).click();
             cy.log(selectedGroupProduct)
         });
@@ -101,6 +101,7 @@ class homePage {
             cy.get('h5').should('contain.text','$360')
             cy.get('#article').should('contain.text','The Samsung Galaxy S6 is powered by 1.5GHz')
         })
+        //compare data UI <> API
     }
     static hoverAnyTitleCard = () =>{
         cy.get(CARDPRODUCT).eq(0).find(CARD_TITLE).find('a').trigger('mouseover');
@@ -110,10 +111,16 @@ class homePage {
     .should('have.css', 'text-decoration','none solid rgb(2, 117, 216)'); //chưa làm khúc check này
     }
     static clickAnyPhotoCard =()=>{
-        cy.get(CARDPRODUCT).eq(0).within(()=>{
-            cy.get('img').click()
-            cy.wait(2000)
-        })
+        // cy.get(CARDPRODUCT).eq(0).within(()=>{
+        //     cy.get('img').click()
+        //     cy.wait(2000)
+        // })
+
+        const randomIndex = Math.floor(Math.random() * 9);
+        cy.get(CARDPRODUCT).eq(randomIndex).within(() => {
+        cy.get('img').click();
+        cy.wait(2000);
+});
     }
     static verifyAInfoFirstProduct = ()=>{
         if (selectedGroupProduct == 'Phones') cy.url().should('include','https://demoblaze.com/prod.html?idp_=1');

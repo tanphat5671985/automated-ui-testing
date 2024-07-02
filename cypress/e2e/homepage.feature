@@ -70,12 +70,3 @@ Background: General Steps
         When Click on Previous button
         Then The previous page displays the list of first product cards
     
-    # ##product ko đủ để thực hiện case bên dưới
-    # Scenario: Verify the user can view next or previous page with a group products by cliking Next/Previous button 
-    #     Then The list of product displays correctly with all products
-    #     When Click on a Group Product on Categories menu
-    #     And The 2 buttons of pagination displays on the right and below list of cards
-    #     When Click on Next button
-    #     Then The next page displays with remaining product cards
-    #     When Click on Previous button
-    #     Then The previous page displays the list of first product cards
