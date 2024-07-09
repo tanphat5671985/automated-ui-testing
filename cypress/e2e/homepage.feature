@@ -1,5 +1,5 @@
 Feature: Check all element at home page screen
-  I want to check all element displays correctly.
+  I want to check about the UI, function and data display at the Home Page screen
 
 Background: General Steps
   Given Navigate to the Home Page screen

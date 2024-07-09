@@ -1,5 +1,5 @@
 Feature: Check all element at the cart screen
-  I want to check all element displays correctly.
+  I want to check about the UI, function and data display at the Cart screen
 
     Scenario: Verify that the elements display correctly when switch to Cart screen and the cart has a product
         Given The cart has 1 product
@@ -36,6 +36,27 @@ Feature: Check all element at the cart screen
         | !@#$% | *&^% |
         | 12554 | KJHGtrfđ |
         | ng4+_-+ | eg1+ |
+
+    Scenario Outline: Verify that the user purchase a product with input full information
+        Given The cart has 1 product
+            And Navigate to the Cart screen
+        Then The table has 1 row as a product
+        When Click on Place Order button
+        Then The Place order pop-up is opened
+            And The pop-up displays include infor correctly
+        When Input mandatory fields "<Name>", "<Country>", "<City>", "<Creditcard>", "<Month>" and "<Year>"
+            And Click on Purchase button
+        Then The success message displays correctly <Name> and <Creditcard>
+        When Click on OK button
+        Then The message disappears and then the system redirects to home page screen
+    
+    Examples:
+        | Name | Country | City | Creditcard | Month | Year |
+        | Tester | Vietnam | Ho Chi Minh City | 0254| 09 | 2024 |
+        | Tester123 | Viet nam | Ho Chi Minh City | 21hgfd| 09 | 2024 |
+        
+
+
 
     Scenario Outline: Verify that the user purchase multiple product in the cart
         Given The cart has multiple products
@@ -91,7 +112,7 @@ Feature: Check all element at the cart screen
         Then The table has 2 rows as 2 products
             And The total price is displayed accurately
         When Click on Delete
-        Then The table has only 1 row
+        Then The table display correctly after deleting
             And The total price is displayed accurately
 
     Scenario: Verify that the user can delete a product to blank/empty cart

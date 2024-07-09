@@ -151,5 +151,22 @@ class homePage {
     static verifyFirstPage = ()=>{
         cy.get('#tbodyid').find(LISTCARD).should('have.length', 9);
     }
+
+    static selectAProduct = (productname) => {
+        //lấy tất cả các name product gồm 9 value: #tbodyid > div > div > div > h4 > a
+        //tìm và chọn sản phẩm với tên được truyền vào productname
+
+        cy.get('#tbodyid > div > div > div > h4 > a').each(($el, index, $list) => {
+            cy.wrap($el).invoke('text').then((text) => {
+                // So sánh tên sản phẩm với tên được truyền vào
+                if (text.trim() === productname) {
+                    // Click vào sản phẩm nếu tên sản phẩm khớp
+                    cy.wrap($el).click();
+                    // Thoát khỏi vòng lặp vì đã tìm thấy sản phẩm
+                    return false;
+                }
+            });
+        });
+    }
 }
 export default homePage;
