@@ -1,10 +1,6 @@
 import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 import commonPage from '../../pages/commonPage';
 
-before(()=>{
-    cy.log('test footer');
-});
-
 Given('Navigate to the Home Page screen', ()=>{
     cy.visit('/');
     cy.wait(1000);

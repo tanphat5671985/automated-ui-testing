@@ -1,9 +1,6 @@
 import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 import homePage from '../../pages/homePage';
 
-before(()=>{
-    cy.log('test home page');
-})
 
 Given('Navigate to the Home Page screen', ()=>{
     cy.visit('/');
@@ -11,11 +8,11 @@ Given('Navigate to the Home Page screen', ()=>{
 
 });
 
-Then('The slideshow display in the center of the page', ()=>{
+Then('The slideshow component displays in the center of the page', ()=>{
     homePage.verifySlideshowdisplay();
 });
 
-Then('Slideshow displays a product for 3 seconds and switch to next product',()=>{
+Then('Slideshow displays a product for 5 seconds and switch to next product',()=>{
     homePage.verifySlideAutoSwitch();
 });
 
@@ -35,7 +32,7 @@ Then('A previous product is displayed accurately',()=>{
     homePage.verifyPrevSlideShow();
 })
 
-When('Click on a carousel icon below slideshow',()=>{
+When('Click on any carousel icon below the slideshow',()=>{
     homePage.clickSpecSlide();
 })
 
@@ -43,7 +40,7 @@ Then('A selected product is displayed accurately',()=>{
     homePage.verifySpecSlideShow();
 })
 
-Then('The CATEGORIES menu display the left of the page', ()=>{
+Then('The CATEGORIES menu display correctly', ()=>{
     homePage.verifyCategoryShow();
 })
 
@@ -52,18 +49,18 @@ Then('The list of group product is displayed accurately',()=>{
 })
 
 
-When('Click on a Group Product on Categories menu',()=>{
-    homePage.clickAGrProduct();
+When('Click on a {string} on Categories menu',(groupProduct)=>{
+    homePage.clickAGrProduct(groupProduct);
 })
-Then('The product list is changed according to the selected product group',()=>{
-    homePage.verifySelectGrProduct();
+Then('The product list is changed according to the selected {string}',(groupProduct)=>{
+    homePage.verifySelectGrProduct(groupProduct);
 })
 
 When('Click on CATEGORIES menu field',()=>{
     homePage.clickWholeCate();
 })
 Then('The list of product displays correctly with all products',()=>{
-    homePage.verifyProductShow();
+    homePage.verifyWholeProductShow();
 })
 
 //PRODUCT CARD
@@ -71,23 +68,20 @@ Then('The card display information correctly',()=>{
     homePage.verifyCardShow();
 })
 
-When('Hover any title of product card',()=>{
-    homePage.hoverAnyTitleCard();
+When('Hover over the title of the first product card',()=>{
+    homePage.hoverATitleCard();
 })
 
 Then('The title card is underlined',()=>{
     homePage.verifyHoveredTitleCard();
 })
 
-When('Click on any photo of product card',()=>{
-    homePage.clickAnyPhotoCard();
+When('Click on a photo of {string} card',(productname)=>{
+    homePage.clickAPhotoCard(productname);
 })
-Then('Redirect to an Information Product screen',()=>{
-    homePage.verifyAInfoFirstProduct();
 
-})
-When('Click on any title of product card',()=>{
-    homePage.clickAnyTitleCard();
+When('Click on a title of {string} card',(productname)=>{
+    homePage.clickATitleCard(productname);
 })
 
 Then('The 2 buttons of pagination displays on the right and below list of cards',()=>{
@@ -98,12 +92,24 @@ When('Click on Next button',()=>{
     homePage.clickNextPage();
 })
 Then('The next page displays with remaining product cards',()=>{
-    homePage.verifyNextPage();
+    homePage.verifyNextPageShowCorrectly();
 })
 
 When('Click on Previous button',()=>{
     homePage.clickPrevPage();
 })
 Then('The previous page displays the list of first product cards',()=>{
-    homePage.verifyFirstPage();
+    homePage.verifyWholeProductShow();
+    homePage.verifyCardShow();
+})
+
+Then('The Next button is visible',()=>{
+    homePage.checkNextBtnVisible();
+})
+Then('The Next button is not visible',()=>{
+    homePage.checkNextBtnNotBeVisible();
+})
+
+Then('The Previous button is not visible',()=>{
+    homePage.checkPreBtnNotBeVisible();
 })

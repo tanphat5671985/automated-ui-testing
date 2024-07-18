@@ -4,11 +4,23 @@ const IMG_PRODUCT = '#imgp > div > img';
 const TITLE_PRODUCT = '#tbodyid > h2';
 const PRICE_PRODUCT = '#tbodyid > h3';
 const DESC_PRODUCT = '#more-information > p';
+const CAROUSEL = '#myCarousel-2 > ol';
 
 //common variable
 let baseAPI = 'https://api.demoblaze.com/entries';
 class inforProductPage{
     //al func steps, verify
+    
+    static verifyElementsDisplay = () => {
+        cy.get(IMG_PRODUCT).should('be.visible');
+        cy.get(TITLE_PRODUCT).should('be.visible');
+        cy.get(PRICE_PRODUCT).should('be.visible');
+        cy.get(DESC_PRODUCT).should('be.visible');
+        cy.get(ADD_BTN).should('be.visible');
+        //check carousel must be not exist in this page
+        cy.get(CAROUSEL).should('not.exist');
+    }
+    
     static clickAddProduct = () => {
         cy.get(ADD_BTN).click();
         cy.wait(1000);

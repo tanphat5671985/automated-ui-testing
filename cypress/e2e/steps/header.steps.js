@@ -1,9 +1,6 @@
 import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 import commonPage from '../../pages/commonPage';
 
-before(()=>{
-    cy.log('test');
-})
 
 Given('Navigate to the Home Page screen', ()=>{
     cy.visit('/');
@@ -13,7 +10,7 @@ Given('Navigate to the Home Page screen', ()=>{
 Then('The title of the page displayed with the logo and brand in the tab browser', ()=>{
     cy.title().should('eq','STORE');
 });
-Then('The logo and the brand on the header displays on the left of the page and is the same as Figma', ()=>{
+Then('The logo and the brand on the header displays on the left of the page correctly', ()=>{
     commonPage.verifyNavBrand();
 });
 Then('The 6 items on the navbar displayed sequentially and contain hyperlink', ()=>{

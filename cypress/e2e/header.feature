@@ -6,7 +6,7 @@ Background: General Steps
 
     Scenario: Verify that the header displays correctly
         Then The title of the page displayed with the logo and brand in the tab browser
-        And The logo and the brand on the header displays on the left of the page and is the same as Figma
+        And The logo and the brand on the header displays on the left of the page correctly
         And The 6 items on the navbar displayed sequentially and contain hyperlink
 
     Scenario: Verify that the user can redirect to Home Page by clicking the logo/brand at the header

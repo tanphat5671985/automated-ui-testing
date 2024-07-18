@@ -4,6 +4,49 @@ Feature: Check all element at the Information Product screen
 Background: General Steps
     Given Navigate to the Home Page screen
     
+###TEST CASE FOR HEADER
+    Scenario: Verify that the header displays correctly
+        Then The title of the page displayed with the logo and brand in the tab browser
+        And The logo and the brand on the header displays on the left of the page correctly
+        And The 6 items on the navbar displayed sequentially and contain hyperlink
+
+    Scenario: Verify that the user can redirect to Home Page by clicking the logo/brand at the header
+        When Click on Logo and Brand on the header
+        Then The screen is re-directed to Home Page
+
+    Scenario: Verify that the item in the navbar is highlighted when the user hover
+        When Hover a item on the navbar
+        Then The item being hovered is highlighted
+
+###TEST CASE FOR FOOTER
+    Scenario: Verify that the footer displays correctly at the bottom
+        Then The 3 columns display sequentially information
+        And The Brand Licensing displays with 'Copyright © Product Store 2017'
+
+    Scenario: Verify that the information on the 3 columns footer displayed accurately
+        Then The 3 columns display sequentially information
+        And The About us is displayed with: 'We believe performance needs to be validated at every stage of the software development cycle and our open source compatible, massively scalable platform makes that a reality.'
+        And The Get In Touch is displayed
+        |data|
+        |Address: 2390 El Camino Real|
+        |Phone: +440 123456|
+        |Email: demo@blazemeter.com|
+        And The Logo and the Brand is displayed correctly
+
+    Scenario: Verify user can NOT click any item on the footer   
+        When Click on any the field on the footer
+        Then NO any action about redirect or reload
+
+###TEST CASE FOR UI CHECK ELEMENTS DISPLAY
+    Scenario Outline: Verify the screen displays correctly UI without ant broken elements
+        When Select a "<productname>"
+        Then The Information Product screen is opened
+            And The elements display successfully
+    Examples:
+        |productname|
+        |Samsung galaxy s6|
+
+###TEST CASE FOR INFORMATION PRODUCT UI   
     Scenario Outline: Verify that the elements display correctly at Information Product when user select a product
         When Select a "<productname>"
         Then The Information Product screen is opened
@@ -16,7 +59,7 @@ Background: General Steps
         |productname|
         |Samsung galaxy s6|
         |Nexus 6|
-
+###TEST CASE FOR CART FUNCTION  
     Scenario Outline: Verify that the user can add a product to a cart successfully
         When Select a "<productname>"
         Then The Information Product screen is opened

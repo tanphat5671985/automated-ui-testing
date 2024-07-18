@@ -3,7 +3,7 @@ const NAVBRAND = '#nava';
 const NAVMENU = '.navbar-nav.ml-auto';
 //footer
 const COLUMN_FOOTER = '.caption';
-
+const LICENSE = '.py-5.bg-inverse';
 class commonPage {
     
     static verifyNavBrand = () =>{
@@ -28,9 +28,9 @@ class commonPage {
     }
     static verifyRedirectHomePg = ()=>{
         cy.url().then((url) => {
-            const HomePageUrl = url;
+            const currentUrl = url;
             cy.location().should((location) => {
-                expect(location.href).to.eq(HomePageUrl);
+                expect(location.href).to.eq(currentUrl);
             });
         });
     }
@@ -51,11 +51,18 @@ class commonPage {
     }
     static verify3columnsAtFooter = () => {
         cy.get(COLUMN_FOOTER).eq(0).should('contain.text','About Us')
+        //verify not exist __
         cy.get(COLUMN_FOOTER).eq(1).should('contain.text','Get in Touch')
+        //verify not exist __
+        // cy.get('.caption > h4').eq(1).then($el => {
+        //     const afterContent = window.getComputedStyle($el[0], '::after').getPropertyValue('content');
+        //     expect(afterContent).to.eq('none');
+        //     //expect(afterContent).to.eq('""'); //replace none = "" => PASSED
+        // })
         cy.get(COLUMN_FOOTER).eq(2).should('contain.text','PRODUCT STORE')
     }
     static verifyLicensing = (data) => {
-        cy.get('.py-5.bg-inverse').should('contain.text',data)
+        cy.get(LICENSE).should('contain.text',data)
     }
     static verifyAboutUsfield = (data)=>{
         const normalizeWhitespace = (text) => text.replace(/\s+/g, ' ').trim();

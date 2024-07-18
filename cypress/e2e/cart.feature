@@ -1,26 +1,80 @@
 Feature: Check all element at the cart screen
   I want to check about the UI, function and data display at the Cart screen
 
-    Scenario: Verify that the elements display correctly when switch to Cart screen and the cart has a product
-        Given The cart has 1 product
-            And Navigate to the Cart screen
-        Then The title 'Products' display above the table and on the left the page
-            And  The table display the row and the column display correctly
-            And The title 'Total' display above the Place Order button
-            And The Place Order button displays and enable with green color
+###TEST CASE FOR HEADER
+    Scenario: Verify that the header displays correctly
+        Given Navigate to the Cart screen
+        Then The title of the page displayed with the logo and brand in the tab browser
+            And The logo and the brand on the header displays on the left of the page correctly
+            And The 6 items on the navbar displayed sequentially and contain hyperlink
 
-    Scenario: Verify that the elements display correctly when switch to Cart screen and the cart has NOT any product
-        Given The cart has NOT any product
+    Scenario: Verify that the user can redirect to Home Page by clicking the logo/brand at the header
+        Given Navigate to the Cart screen
+        When Click on Logo and Brand on the header
+        Then The screen is re-directed to Home Page
+
+    Scenario: Verify that the item in the navbar is highlighted when the user hover
+        Given Navigate to the Cart screen
+        When Hover a item on the navbar
+        Then The item being hovered is highlighted
+
+###TEST CASE FOR FOOTER
+    Scenario: Verify that the footer displays correctly at the bottom
+        Given Navigate to the Cart screen
+        Then The 3 columns display sequentially information
+            And The Brand Licensing displays with 'Copyright © Product Store 2017'
+
+    Scenario: Verify that the information on the 3 columns footer displayed accurately
+        Given Navigate to the Cart screen
+        Then The 3 columns display sequentially information
+            And The About us is displayed with: 'We believe performance needs to be validated at every stage of the software development cycle and our open source compatible, massively scalable platform makes that a reality.'
+            And The Get In Touch is displayed
+        |data|
+        |Address: 2390 El Camino Real|
+        |Phone: +440 123456|
+        |Email: demo@blazemeter.com|
+            And The Logo and the Brand is displayed correctly
+
+    Scenario: Verify user can NOT click any item on the footer   
+        Given Navigate to the Cart screen
+        When Click on any the field on the footer
+        Then NO any action about redirect or reload
+
+###TEST CASE TABLE 
+    Scenario Outline: Verify that the UI elements display correctly when switch to Cart screen and the cart has a product
+        Given The cart has a product as "<productname>"
             And Navigate to the Cart screen
         Then The title 'Products' display above the table and on the left the page
-            And  The table display the row and the column display correctly with empty product
+            And The table display the row "<productname>" and the column display correctly
             And The title 'Total' display above the Place Order button
             And The Place Order button displays and enable with green color
-    
-    Scenario Outline: Verify that the user purchase a product in the cart
-        Given The cart has 1 product
+    Examples:
+        |productname|
+        |Sony xperia z5|
+
+    Scenario Outline: Verify that the UI elements display correctly when switch to Cart screen and the cart has multiple products
+        Given The cart has multiple products as "<productname1>" and "<productname2>"
             And Navigate to the Cart screen
-        Then The table has 1 row as a product
+        Then The title 'Products' display above the table and on the left the page
+            And The table display the row "<productname1>", "<productname2>" and the column display correctly
+            And The title 'Total' display above the Place Order button
+            And The Place Order button displays and enable with green color
+    Examples:
+        |productname1|productname2|
+        |Sony xperia z5|Iphone 6 32gb|
+
+    Scenario: Verify that the UI elements display correctly when switch to Cart screen and the cart has NOT any product
+        Given Navigate to the Cart screen
+        Then The title 'Products' display above the table and on the left the page
+            And The table display the row and the column display correctly with empty product
+            And The title 'Total' display above the Place Order button and value is blanked
+            And The Place Order button displays and enable with green color
+###TEST CASE PURCHASE BUTTON
+    Scenario Outline: Verify that the user purchase a product in the cart
+        Given The cart has a product as "<productname>"
+            And Navigate to the Cart screen
+        Then The table display the row "<productname>" and the column display correctly
+            And The total price is displayed accurately
         When Click on Place Order button
         Then The Place order pop-up is opened
             And The pop-up displays include infor correctly
@@ -31,16 +85,15 @@ Feature: Check all element at the cart screen
         Then The message disappears and then the system redirects to home page screen
     
     Examples:
-        | Name | Creditcard |
-        | Tester | 110 |
-        | !@#$% | *&^% |
-        | 12554 | KJHGtrfđ |
-        | ng4+_-+ | eg1+ |
+        |productname| Name | Creditcard |
+        |Nokia lumia 1520| Tester | 110 |
+        |Samsung galaxy s6| ng4+_-+ | eg1+ |
 
     Scenario Outline: Verify that the user purchase a product with input full information
-        Given The cart has 1 product
+        Given The cart has a product as "<productname>"
             And Navigate to the Cart screen
-        Then The table has 1 row as a product
+        Then The table display the row "<productname>" and the column display correctly
+            And The total price is displayed accurately
         When Click on Place Order button
         Then The Place order pop-up is opened
             And The pop-up displays include infor correctly
@@ -51,17 +104,15 @@ Feature: Check all element at the cart screen
         Then The message disappears and then the system redirects to home page screen
     
     Examples:
-        | Name | Country | City | Creditcard | Month | Year |
-        | Tester | Vietnam | Ho Chi Minh City | 0254| 09 | 2024 |
-        | Tester123 | Viet nam | Ho Chi Minh City | 21hgfd| 09 | 2024 |
+        |productname| Name | Country | City | Creditcard | Month | Year |
+        |Nokia lumia 1520| Tester | Vietnam | Ho Chi Minh City | 0254| 09 | 2024 |
+        |Samsung galaxy s6| Tester123 | Viet nam | Ho Chi Minh City | 21hgfd| 09 | 2024 |
         
-
-
-
     Scenario Outline: Verify that the user purchase multiple product in the cart
-        Given The cart has multiple products
+        Given The cart has multiple products as "<productname1>" and "<productname2>"
             And Navigate to the Cart screen
         Then The table has 2 rows as 2 products
+            And The total price is displayed accurately
         When Click on Place Order button
         Then The Place order pop-up is opened
             And The pop-up displays include infor correctly
@@ -72,54 +123,68 @@ Feature: Check all element at the cart screen
         Then The message disappears and then the system redirects to home page screen
     
     Examples:
-        | Name | Creditcard |
-        | Tester | 110 |
-        | !@#$% | *&^% |
-        | 12554 | KJHGtrfđ |
-        | eng124+_-+ | e+_-+ |
+        |productname1|productname2| Name | Creditcard |
+        |Nokia lumia 1520|Nokia lumia 1520| Tester | 110 |
+        |Nexus 6|Nokia lumia 1520| eng124+_-+ | e+_-+ |
     
+    Scenario: Verify that the user purchase without any product in the cart
+        Given Navigate to the Cart screen
+        Then The table display the row and the column display correctly with empty product
+        When Click on Place Order button
+        Then Verify the error message displays with 'There are NOT any products in the cart!'
+
+
     Scenario Outline: Verify that the user purchase a product in the cart but NOT fill out mandatory fields
-        Given The cart has 1 product
+        Given The cart has a product as "<productname>"
             And Navigate to the Cart screen
-        Then The table has 1 row as a product
+        Then The table display the row "<productname>" and the column display correctly
+            And The total price is displayed accurately
         When Click on Place Order button
         Then The Place order pop-up is opened
             And The pop-up displays include infor correctly
         When Input mandatory fields "<Name>" and "<Creditcard>"
             And Click on Purchase button
         Then The error message is displayed 'Please fill out Name and Creditcard.'
-
     Examples:
-        |Name|Creditcard|
-        |test||
-        ||test|
-        |||
+        |productname|Name|Creditcard|
+        |HTC One M9|test||
+        |Sony vaio i5||test|
+        |Sony vaio i5|||
 
-    Scenario: Verify that the user order a product in the cart but NO click purchase
-        Given The cart has 1 product
+    Scenario Outline: Verify that the user order a product in the cart but NO click purchase
+        Given The cart has a product as "<productname>"
             And Navigate to the Cart screen
-        Then The table has 1 row as a product
+        Then The table display the row "<productname>" and the column display correctly
+            And The total price is displayed accurately
         When Click on Place Order button
         Then The Place order pop-up is opened
             And The pop-up displays include infor correctly
         When Click Close button
         Then The popup is disappeared and keep product at Cart screen
-
-    @test
-    Scenario: Verify that the user can delete a product in the cart
-    Given The cart has multiple products
+    Examples:
+        |productname|
+        |Sony xperia z5|
+###TEST CASE DELETE A PRODUCT
+    Scenario Outline: Verify that the user can delete a product in the cart
+        Given The cart has multiple products as "<productname1>" and "<productname2>"
             And Navigate to the Cart screen
         Then The table has 2 rows as 2 products
             And The total price is displayed accurately
         When Click on Delete
         Then The table display correctly after deleting
             And The total price is displayed accurately
+    Examples:
+        |productname1|productname2|
+        |Sony xperia z5|Iphone 6 32gb|
 
-    Scenario: Verify that the user can delete a product to blank/empty cart
-    Given The cart has 1 product
+    Scenario Outline: Verify that the user can delete a product to blank/empty cart
+        Given The cart has a product as "<productname>"
             And Navigate to the Cart screen
-        Then The table has 1 row as a product
+        Then The table display the row "<productname>" and the column display correctly
             And The total price is displayed accurately
         When Click on Delete
         Then The table has NOT any row
             And The total price is blanked
+    Examples:
+        |productname|
+        |Sony xperia z5|

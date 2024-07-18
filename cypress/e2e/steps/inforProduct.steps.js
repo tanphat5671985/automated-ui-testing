@@ -3,16 +3,13 @@ import inforProductPage from '../../pages/inforProductPage';
 import homePage from '../../pages/homePage';
 import cartPage from '../../pages/cartPage';
 
-before(()=>{
-    cy.log('testing Information Product screen');
-});
-
 Given('Navigate to the Home Page screen', () => {
     cy.visit('/');
 });
 
 When('Select a {string}', (productname) => {
-    homePage.selectAProduct(productname);
+    //homePage.selectAProduct(productname);
+    homePage.clickATitleCard(productname);
 });
 
 Then('The Information Product screen is opened', () => {
@@ -75,4 +72,9 @@ Then('Verify the table displays the selected product {string} with 2 row correct
 
 Then('Verify the total price is displayed accurately', () => {
     cartPage.verifyTotalPriceValue();
+})
+
+Then('The elements display successfully', ()=>{
+    inforProductPage.verifyElementsDisplay();
+    inforProductPage.verifyAddBtnVisible();
 })

@@ -11,4 +11,7 @@ module.exports = defineConfig({
     baseUrl: 'https://demoblaze.com/',
     reporter: 'mochawesome'
   },
+  reporterOptions: {
+    overwrite: true
+  },
 });

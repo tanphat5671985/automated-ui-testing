@@ -19,14 +19,24 @@ const POPUP_INPUT_FIELDS_VALUE = [
     { label: 'Year:', nthChild: 7 }];
 const POPUP_CLOSE_BTN = '#orderModal > div > div > div.modal-footer > button.btn.btn-secondary';
 const POPUP_PURCHASE_BTN = '#orderModal > div > div > div.modal-footer > button.btn.btn-primary';
+
+const NAME_INPUT = '#orderModal > div > div > div.modal-body > form > div:nth-child(2)';
+const COUNTRY_INPUT = '#orderModal > div > div > div.modal-body > form > div:nth-child(3)';
+const CITY_INPUT = '#orderModal > div > div > div.modal-body > form > div:nth-child(4)';
+const CREDITCARD_INPUT = '#orderModal > div > div > div.modal-body > form > div:nth-child(5)';
+const MONTH_INPUT = '#orderModal > div > div > div.modal-body > form > div:nth-child(6)';
+const YEAR_INPUT = '#orderModal > div > div > div.modal-body > form > div:nth-child(7)';
 //Sucess Message
 const SUCCESS_MSG = 'div.sweet-alert.showSweetAlert.visible';
 const SUCCESS_MSG_OK_BTN = '.confirm.btn.btn-lg.btn-primary';
-
+//TABLE
+const ROW_DATA = '';
 
 //common variable
 let homepageUrl = 'https://demoblaze.com/index.html';
 let numOfRows = 0;
+let baseAPI = 'https://api.demoblaze.com/entries';
+let totalPrice = 0;
 class cartPage{
     //al func steps, verify
     static navToCartUI = () =>{
@@ -44,22 +54,72 @@ class cartPage{
             cy.get('th').eq(3).should('contain', 'x');
         });
     }
-    static verifyDataTable =()=>{
-        //get API and compare
+    static verifyDataTableWithARowData =(productname)=>{
+        //verify data in the table
+        cy.request('GET', baseAPI).then((response) => {
+            const items = response.body.Items;
+            const product = items.find(item => item.title === productname);
+            //find title & compare <> API
+            cy.log(product.title)
+            cy.get('#tbodyid > tr > td:nth-child(2)').should('have.text',productname)
+            //find img & compare <> API
+            cy.wait(2000)
+            cy.get('#tbodyid > tr > td:nth-child(1)').find('img').should('have.attr', 'src', product.img);
+            //find price & compare <> API
+            cy.get('#tbodyid > tr > td:nth-child(3)').invoke('text').then((text) => {
+                const uiPrice = parseFloat(text.replace('$', '').split(' ')[0].trim());
+                expect(uiPrice).to.eq(product.price);
+            });
+            //find delete btn
+            cy.get(DELETE_BTN).should('be.visible');
+
+            
+        });
     }
+
+    static verifyDataTableWithMultiRow =(productname1,productname2)=>{
+        //verify data in the table
+        cy.request('GET', baseAPI).then((response) => {
+            const items = response.body.Items;
+            const product1 = items.find(item => item.title === productname1);
+            //find title & compare <> API
+            cy.log(product1.title)
+            cy.get('#tbodyid > tr:nth-child(1) > td:nth-child(2)').should('have.text', productname1)
+            //find img & compare <> API
+            cy.get('#tbodyid > tr:nth-child(1) > td:nth-child(1)').find('img').should('have.attr', 'src', product1.img);
+            //find price & compare <> API
+            cy.get('#tbodyid > tr:nth-child(1) > td:nth-child(3)').invoke('text').then((text) => {
+                const uiPrice = parseFloat(text.replace('$', '').split(' ')[0].trim());
+                expect(uiPrice).to.eq(product1.price);
+            });
+            
+            const product2 = items.find(item => item.title === productname2);
+            //find title & compare <> API
+            cy.log(product2.title)
+            cy.get('#tbodyid > tr:nth-child(2) > td:nth-child(2)').should('have.text', productname2)
+            //find img & compare <> API
+            cy.get('#tbodyid > tr:nth-child(2) > td:nth-child(1)').find('img').should('have.attr', 'src', product2.img);
+            //find price & compare <> API
+            cy.get('#tbodyid > tr:nth-child(2) > td:nth-child(3)').invoke('text').then((text) => {
+                const uiPrice = parseFloat(text.replace('$', '').split(' ')[0].trim());
+                expect(uiPrice).to.eq(product2.price);
+            });
+        });
+    }
+
     static verifyTotalfield = (data)=>{
         cy.get(TOTAL_FIELD).should('contain.text',data);
+        
     }
+
     static verifyPlaceOrderBtn = ()=>{
         cy.get(PLACEORDER_BTN).should('contain.text','Place Order');
         cy.get(PLACEORDER_BTN).should('have.css', 'background-color', 'rgb(92, 184, 92)');
     }
     static verifyEmptyTable = ()=>{
         cy.get(DATA_TABLE).within(() => {
-            cy.get('td').should('not.exist', 'img');
+            cy.get('td').should('not.exist');
         })
-
-        cy.get('#tbodyid > tr').should('not.exist')
     }
 
     static verifyTablehas1Product = ()=>{
@@ -81,10 +141,7 @@ class cartPage{
     static verifyTitlePopup = ()=>{
         cy.get(POPUP_TITLE).should('contain.text','Place order');
     }
-    static verifyTotalOnPopup = () =>{
-        cy.get(POPUP_TOTAL).should('contain.text','Total:')
-        //missing verify data total from page <> popup must be match
-    }
+    
     static verifyInputField = ()=>{
         POPUP_INPUT_FIELDS_VALUE.forEach(field =>{
             cy.get(`#orderModal > div > div > div.modal-body > form > div:nth-child(${field.nthChild})`).within(()=>{
@@ -105,30 +162,30 @@ class cartPage{
     }
     static inputMandatoryFields = (Name, Creditcard) => {
         if (Name !=='') {
-            cy.get('#orderModal > div > div > div.modal-body > form > div:nth-child(2)').find('input').type(Name, {force: true, waitForAnimations: true});
+            cy.get(NAME_INPUT).find('input').type(Name, {force: true, waitForAnimations: true});
         }
         if (Creditcard !== '') {
-            cy.get('#orderModal > div > div > div.modal-body > form > div:nth-child(5)').find('input').type(Creditcard, {force: true, waitForAnimations: true});
+            cy.get(CREDITCARD_INPUT).find('input').type(Creditcard, {force: true, waitForAnimations: true});
         }
     }
     static inputFullInfor = (Name, Country, City, Creditcard, Month, Year)=>{
         if (Name !=='') {
-            cy.get('#orderModal > div > div > div.modal-body > form > div:nth-child(2)').find('input').type(Name, {force: true, waitForAnimations: true});
+            cy.get(NAME_INPUT).find('input').type(Name, {force: true, waitForAnimations: true});
         }
         if (Country !=='') {
-            cy.get('#orderModal > div > div > div.modal-body > form > div:nth-child(3)').find('input').type(Country, {force: true, waitForAnimations: true});
+            cy.get(COUNTRY_INPUT).find('input').type(Country, {force: true, waitForAnimations: true});
         }
         if (City !=='') {
-            cy.get('#orderModal > div > div > div.modal-body > form > div:nth-child(4)').find('input').type(City, {force: true, waitForAnimations: true});
+            cy.get(CITY_INPUT).find('input').type(City, {force: true, waitForAnimations: true});
         }
         if (Creditcard !=='') {
-            cy.get('#orderModal > div > div > div.modal-body > form > div:nth-child(5)').find('input').type(Creditcard, {force: true, waitForAnimations: true});
+            cy.get(CREDITCARD_INPUT).find('input').type(Creditcard, {force: true, waitForAnimations: true});
         }
         if (Month !=='') {
-            cy.get('#orderModal > div > div > div.modal-body > form > div:nth-child(6)').find('input').type(Month, {force: true, waitForAnimations: true});
+            cy.get(MONTH_INPUT).find('input').type(Month, {force: true, waitForAnimations: true});
         }
         if (Year !=='') {
-            cy.get('#orderModal > div > div > div.modal-body > form > div:nth-child(7)').find('input').type(Year, {force: true, waitForAnimations: true});
+            cy.get(YEAR_INPUT).find('input').type(Year, {force: true, waitForAnimations: true});
         }
         cy.wait(1000);
     }
@@ -138,14 +195,23 @@ class cartPage{
         cy.get(POPUP_PURCHASE_BTN).click({force: true});
     }
     static verifySucessMsg = (Name, Creditcard) =>{
+        const today = new Date();
+        const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+        const formattedDate = today.toLocaleDateString('en-GB', options); // dd/mm/yyyy
+
         cy.get(SUCCESS_MSG).within(()=>{
             cy.get('h2').should('contain.text','Thank you for your purchase!');
             cy.get('p')
                 .should('contain.text','Id:')
-                .and('contain.text','Amount: ')
+                // .and('contain.text','Amount: ')
+                // .and('contain.text','Card Number: ')
+                // .and('contain.text','Date: ')
+                // .and('contain.text','Name: ')
+                .and('contain.text', `Amount: ${totalPrice}`)
                 .and('contain.text',`Card Number: ${Creditcard}`)
                 .and('contain.text',`Name: ${Name}`)
-                .and('contain.text','Date:'); //get currrent date
+                .and('contain.text',`Date: ${formattedDate}`); //get currrent date => FAILED
+                
         })
     }
     static clickOKonSucessMsg = () =>{
@@ -166,8 +232,9 @@ class cartPage{
     }
     static clickCloseBtn = () => {
         cy.wait(1000);
-        cy.get(POPUP_CLOSE_BTN).click();
-        cy.wait(1000);
+        cy.get(POPUP_CLOSE_BTN).should('be.visible');
+        cy.get(POPUP_CLOSE_BTN).click({force: true});
+        cy.wait(2000);
     }
     static verifyPlaceOrderPopupClose = () => {
         cy.get('#orderModal').should('have.css', 'display', 'none');
@@ -195,7 +262,7 @@ class cartPage{
             //check
             cy.log('Total price from table:', sumOfPrices);
             //Compare total từ UI <> Total từ table
-            let totalPrice;
+            //let totalPrice;
             //verify with total at table
             cy.get('#totalp').then($el => {
                 totalPrice =parseFloat($el.text());
@@ -221,6 +288,14 @@ class cartPage{
             cy.log('Total from UI must be empty/blank: ',totalPrice);
             expect(totalPrice).to.equal('')
         })
+    }
+    static verifyTotalOnPopup = () =>{
+        cy.get(POPUP_TOTAL).should('contain.text',`Total: ${totalPrice}`)
+    }
+    static verifyErrorMsgShow = (data) => {
+        cy.om('window:alert', (alertText) => {
+            expect(alertText).to.equal(data);
+        });
     }
 }
 

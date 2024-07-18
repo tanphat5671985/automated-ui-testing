@@ -12,7 +12,7 @@
     "merge-report": "mochawesome-merge \"result/*.json\" > index.json",
     "build-report": "marge index.json",
     "open-report": "npm run merge-report && npm run build-report && serve mochawesome-report",
-    "run-dev": "cypress run && npm run open-report"
+    "run-test": "cypress run && npm run open-report"
   },
   "keywords": [],
   "author": "",
