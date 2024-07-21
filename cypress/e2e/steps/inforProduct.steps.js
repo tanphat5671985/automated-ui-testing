@@ -48,6 +48,10 @@ When('Click Add to cart button', () => {
     inforProductPage.clickAddProduct();
 })
 
+When('Click Add to cart button again', () => {
+    inforProductPage.clickAddProductAgain();
+})
+
 Then('Verify the success messsage displays correctly {string}', (msg) => {
     inforProductPage.verifySuccessMsg(msg);
 })

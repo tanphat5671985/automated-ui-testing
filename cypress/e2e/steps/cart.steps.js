@@ -6,17 +6,17 @@ import cartPage from '../../pages/cartPage';
 Given('The cart has a product as {string}', (productname)=>{
     cy.visit('/');
     homePage.clickAPhotoCard(productname);
-    inforProductPage.clickAddProduct();
+    inforProductPage.clickAddProductAgain();
 });
 
 Given('The cart has multiple products as {string} and {string}', (productname1, productname2) => {
     cy.visit('/');
     homePage.clickAPhotoCard(productname1);
-    inforProductPage.clickAddProduct();
+    inforProductPage.clickAddProductAgain();
 
     cy.visit('https://demoblaze.com/index.html');
     homePage.clickAPhotoCard(productname2);
-    inforProductPage.clickAddProduct();
+    inforProductPage.clickAddProductAgain();
 })
 
 Given('Navigate to the Cart screen', ()=>{
@@ -111,11 +111,11 @@ Given('The cart has multiple products', ()=>{
     //select a first product
     cy.visit('/');
     homePage.clickAnyPhotoCard();
-    inforProductPage.clickAddProduct();
+    inforProductPage.clickAddProductAgain();
     //select a second product
     cy.visit('https://demoblaze.com/index.html');
     homePage.clickAnyPhotoCard();
-    inforProductPage.clickAddProduct();
+    inforProductPage.clickAddProductAgain();
 
 });
 

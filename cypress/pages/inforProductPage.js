@@ -8,6 +8,7 @@ const CAROUSEL = '#myCarousel-2 > ol';
 
 //common variable
 let baseAPI = 'https://api.demoblaze.com/entries';
+let alertStub;
 class inforProductPage{
     //al func steps, verify
     
@@ -22,9 +23,18 @@ class inforProductPage{
     }
     
     static clickAddProduct = () => {
+        cy.window().then((win) => {
+            alertStub = cy.stub(win, 'alert').as('alertStub');
+        });
+        
         cy.get(ADD_BTN).click();
         cy.wait(1000);
     }
+    static clickAddProductAgain = () => {
+        cy.get(ADD_BTN).click();
+        cy.wait(1000);
+    }
+
 
     static verifyImgProduct = (productname) => {
         //compare file .jpg on UI with API
@@ -81,9 +91,15 @@ class inforProductPage{
 
     static verifySuccessMsg = (msg) => {
         //verify the messsage on alert with 'Product added'
-        cy.on('window:alert', (msgOnAlert) => {
-            expect(msgOnAlert).to.equal(msg);
-        });
+        // cy.on('window:alert', (msgOnAlert) => {
+        //     expect(msgOnAlert).to.equal(msg);
+        // });
+        cy.get('@alertStub').should('have.been.calledOnce').then((stub) => {
+            const alertMsg = stub.getCall(0).args[0];
+    
+            // So sánh nội dung của cảnh báo với msg
+            expect(alertMsg).to.equal(msg);
+        })
     }
 
     static verifyNameProductIsMatchedAtCart = (productname) => {

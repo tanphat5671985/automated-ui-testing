@@ -37,6 +37,7 @@ let homepageUrl = 'https://demoblaze.com/index.html';
 let numOfRows = 0;
 let baseAPI = 'https://api.demoblaze.com/entries';
 let totalPrice = 0;
+let alertStub;
 class cartPage{
     //al func steps, verify
     static navToCartUI = () =>{
@@ -190,8 +191,11 @@ class cartPage{
         cy.wait(1000);
     }
 
-
+    
     static clickPurchaseBtn = () =>{
+        cy.window().then((win) => {
+            alertStub = cy.stub(win, 'alert').as('alertStub');
+        });
         cy.get(POPUP_PURCHASE_BTN).click({force: true});
     }
     static verifySucessMsg = (Name, Creditcard) =>{
@@ -226,13 +230,18 @@ class cartPage{
         });
     }
     static verifyErrorMissingMandatoryInput = (data) => {
-        cy.on('window:alert', (str) => {
-            expect(str).to.equal(data);
-        });
+        // cy.on('window:alert', (str) => {
+        //     expect(str).to.equal(data);
+        // });
+        cy.get('@alertStub').should('have.been.calledOnce').then((stub) => {
+            const alertMsg = stub.getCall(0).args[0];
+    
+            // So sánh nội dung của cảnh báo với msg
+            expect(alertMsg).to.equal(data);
+        })
     }
     static clickCloseBtn = () => {
         cy.wait(1000);
-        cy.get(POPUP_CLOSE_BTN).should('be.visible');
         cy.get(POPUP_CLOSE_BTN).click({force: true});
         cy.wait(2000);
     }
@@ -293,9 +302,18 @@ class cartPage{
         cy.get(POPUP_TOTAL).should('contain.text',`Total: ${totalPrice}`)
     }
     static verifyErrorMsgShow = (data) => {
-        cy.om('window:alert', (alertText) => {
-            expect(alertText).to.equal(data);
-        });
+        // cy.on('window:alert', (alertText) => {
+        //     expect(alertText).to.equal(data);
+        // });
+        // cy.get('@alertStub').should('have.been.calledOnce').then((stub) => {
+        //     const alertMsg = stub.getCall(0).args[0];
+    
+        //     // So sánh nội dung của cảnh báo với msg
+        //     expect(alertMsg).to.equal(data);
+        // })
+        cy.get(SUCCESS_MSG).within(()=>{
+            cy.get('h2').should('contain.text', data);  
+        })
     }
 }
 

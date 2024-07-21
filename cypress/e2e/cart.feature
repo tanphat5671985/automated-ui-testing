@@ -127,12 +127,16 @@ Feature: Check all element at the cart screen
         |Nokia lumia 1520|Nokia lumia 1520| Tester | 110 |
         |Nexus 6|Nokia lumia 1520| eng124+_-+ | e+_-+ |
     
-    Scenario: Verify that the user purchase without any product in the cart
+    Scenario Outline: Verify that the user purchase without any product in the cart
         Given Navigate to the Cart screen
         Then The table display the row and the column display correctly with empty product
         When Click on Place Order button
+            And Input mandatory fields "<Name>" and "<Creditcard>"
+            And Click on Purchase button
         Then Verify the error message displays with 'There are NOT any products in the cart!'
-
+    Examples:
+        |productname1|productname2| Name | Creditcard |
+        |Nokia lumia 1520|Nokia lumia 1520| Tester | 110 |
 
     Scenario Outline: Verify that the user purchase a product in the cart but NOT fill out mandatory fields
         Given The cart has a product as "<productname>"

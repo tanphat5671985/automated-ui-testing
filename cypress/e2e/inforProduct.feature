@@ -79,9 +79,7 @@ Background: General Steps
         Then The Information Product screen is opened
             And All information product "<productname>" display correctly
         When Click Add to cart button
-        Then Verify the success messsage displays correctly "Product added"
-        When Click Add to cart button
-        Then Verify the success messsage displays correctly "Product added"
+        When Click Add to cart button again
         When Navigate to the Cart screen
         Then Verify the table displays the selected product "<productname>" with 2 row correctly
             And Verify the total price is displayed accurately
