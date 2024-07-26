@@ -302,19 +302,87 @@ class cartPage{
         cy.get(POPUP_TOTAL).should('contain.text',`Total: ${totalPrice}`)
     }
     static verifyErrorMsgShow = (data) => {
-        // cy.on('window:alert', (alertText) => {
-        //     expect(alertText).to.equal(data);
-        // });
-        // cy.get('@alertStub').should('have.been.calledOnce').then((stub) => {
-        //     const alertMsg = stub.getCall(0).args[0];
-    
-        //     // So sánh nội dung của cảnh báo với msg
-        //     expect(alertMsg).to.equal(data);
-        // })
         cy.get(SUCCESS_MSG).within(()=>{
             cy.get('h2').should('contain.text', data);  
         })
     }
+    //func validation
+    static validationNamefield = (Name, msg) => {
+        const lengthOfName = Name.length;
+        if (lengthOfName > 30) {
+            cy.get(SUCCESS_MSG).within(()=>{
+                cy.get('h2').should('contain.text', msg);  
+            })
+        }
+        else {
+            return;
+        }
+    }
+    static validationCountryfield = (Country, msg) => {
+        const lengthOfCountry = Country.length;
+        if (lengthOfCountry > 30) {
+            cy.get(SUCCESS_MSG).within(()=>{
+                cy.get('h2').should('contain.text', msg);  
+            })
+        }
+        else {
+            return;
+        }
+    }
+    static validationCityfield = (City, msg) => {
+        const lengthOfCity = City.length;
+        if (lengthOfCity > 30) {
+            cy.get(SUCCESS_MSG).within(()=>{
+                cy.get('h2').should('contain.text', msg);  
+            })
+        }
+        else {
+            return;
+        }
+    }
+    static validationCreditCard = (Creditcard, msg) => {
+        const lengthOfCreditcard = Creditcard.length;
+        if (lengthOfCreditcard > 19) {
+            cy.get(SUCCESS_MSG).within(()=>{
+                cy.get('h2').should('contain.text', msg);  
+            })
+        }
+        else {
+            return;
+        }
+    }
+    static validationMonthfield = (Month, msg) => {
+        const lengthOfMonth = Month.length;
+        const isNumeric = /^\d+$/.test(Month);
+        if (lengthOfMonth > 2) {
+            cy.get(SUCCESS_MSG).within(()=>{
+                cy.get('h2').should('contain.text', msg);  
+            })
+        }
+        else if (!isNumeric) {
+            cy.get(SUCCESS_MSG).within(()=>{
+                cy.get('h2').should('contain.text', msg);  
+            })
+        }
+        else return;
+    }
+
+    static validationYearfield = (Year, msg) => {
+        const lengthOfYear = Year.length;
+        const isNumeric = /^\d+$/.test(Year);
+        if (lengthOfYear > 4) {
+            cy.get(SUCCESS_MSG).within(()=>{
+                cy.get('h2').should('contain.text', msg);  
+            })
+        }
+        else if (!isNumeric) {
+            cy.get(SUCCESS_MSG).within(()=>{
+                cy.get('h2').should('contain.text', msg);  
+            })
+        }
+        else return;
+    }
+
 }
 
 export default cartPage;

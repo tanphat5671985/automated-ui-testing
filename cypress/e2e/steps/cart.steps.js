@@ -159,3 +159,24 @@ Then('The total price is blanked',()=>{
 Then('Verify the error message displays with {string}',(data) => {
     cartPage.verifyErrorMsgShow(data);
 })
+
+Then('Verify max-length of {string} field & An error message related to max-length Name display {string}', (Name, msg)=> {
+    cartPage.validationNamefield(Name, msg);
+})
+Then('Verify max-length of {string} field & An error message related to max-length Country display {string}', (Country, msg) => {
+    cartPage.validationCountryfield(Country, msg);
+})
+Then('Verify max-length of {string} field & An error message related to max-length City display {string}', (City, msg) => {
+    cartPage.validationCityfield(City, msg);
+})
+Then('Verify max-length of {string} field & An error message related to max-length Creditcard display {string}', (Creditcard, msg) => {
+    cartPage.validationCreditCard(Creditcard, msg);
+})
+
+Then('Verify {string} field & An error message Month display {string}', (Month, msg) => {
+    cartPage.validationMonthfield(Month, msg);
+})
+
+Then('Verify {string} field & An error message Year display {string}', (Year, msg) => {
+    cartPage.validationYearfield(Year, msg);
+})

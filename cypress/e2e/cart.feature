@@ -192,3 +192,111 @@ Feature: Check all element at the cart screen
     Examples:
         |productname|
         |Sony xperia z5|
+
+    ###TEST CASE FOR VALIDATION ON PLACE ORDER POPUP
+    Scenario Outline: Validation max-length of Name field must NOT 30 characters
+        Given The cart has a product as "<productname>"
+            And Navigate to the Cart screen
+        Then The table display the row "<productname>" and the column display correctly
+            And The total price is displayed accurately
+        When Click on Place Order button
+        Then The Place order pop-up is opened
+            And The pop-up displays include infor correctly
+        When Input mandatory fields "<Name>", "<Country>", "<City>", "<Creditcard>", "<Month>" and "<Year>"
+            And Click on Purchase button
+        Then Verify max-length of "<Name>" field & An error message related to max-length Name display "The maximum length of Name is 30 characters!!"
+    Examples:
+        |productname| Name | Country | City | Creditcard | Month | Year |
+        |Nokia lumia 1520| Tester 1256 barement abca Poker Num | Vietnam | Ho Chi Minh City | 0254| 09 | 2024 |
+
+    Scenario Outline: Validation max-length of Name field must NOT 30 characters
+        Given The cart has a product as "<productname>"
+            And Navigate to the Cart screen
+        Then The table display the row "<productname>" and the column display correctly
+            And The total price is displayed accurately
+        When Click on Place Order button
+        Then The Place order pop-up is opened
+            And The pop-up displays include infor correctly
+        When Input mandatory fields "<Name>", "<Country>", "<City>", "<Creditcard>", "<Month>" and "<Year>"
+            And Click on Purchase button
+        Then Verify max-length of "<Name>" field & An error message related to max-length Name display "The maximum length of Name is 30 characters!!"
+    Examples:
+        |productname| Name | Country | City | Creditcard | Month | Year |
+        |Nokia lumia 1520| Tester 1256 barement abca Poker Num | Vietnam | Ho Chi Minh City | 0254| 09 | 2024 |
+
+    Scenario Outline: Validation max-length of Country field must NOT 30 characters
+        Given The cart has a product as "<productname>"
+            And Navigate to the Cart screen
+        Then The table display the row "<productname>" and the column display correctly
+            And The total price is displayed accurately
+        When Click on Place Order button
+        Then The Place order pop-up is opened
+            And The pop-up displays include infor correctly
+        When Input mandatory fields "<Name>", "<Country>", "<City>", "<Creditcard>", "<Month>" and "<Year>"
+            And Click on Purchase button
+        Then Verify max-length of "<Country>" field & An error message related to max-length Country display "The maximum length of Country is 30 characters!!"
+    Examples:
+        |productname| Name | Country | City | Creditcard | Month | Year |
+        |Nokia lumia 1520| Tester | Vietnam 1256 barement abca Poker Number 156a | Ho Chi Minh City | 0254| 09 | 2024 |
+
+    Scenario Outline: Validation max-length of City field must NOT 30 characters
+        Given The cart has a product as "<productname>"
+            And Navigate to the Cart screen
+        Then The table display the row "<productname>" and the column display correctly
+            And The total price is displayed accurately
+        When Click on Place Order button
+        Then The Place order pop-up is opened
+            And The pop-up displays include infor correctly
+        When Input mandatory fields "<Name>", "<Country>", "<City>", "<Creditcard>", "<Month>" and "<Year>"
+            And Click on Purchase button
+        Then Verify max-length of "<City>" field & An error message related to max-length City display "The maximum length of City is 30 characters!!"
+    Examples:
+        |productname| Name | Country | City | Creditcard | Month | Year |
+        |Nokia lumia 1520| Tester | Vietnam 1256 | Ho Chi Minh City barement abca Poker Number 156a | 0254| 09 | 2024 |
+
+    Scenario Outline: Validation max-length of Creditcard field must NOT 19 characters
+        Given The cart has a product as "<productname>"
+            And Navigate to the Cart screen
+        Then The table display the row "<productname>" and the column display correctly
+            And The total price is displayed accurately
+        When Click on Place Order button
+        Then The Place order pop-up is opened
+            And The pop-up displays include infor correctly
+        When Input mandatory fields "<Name>", "<Country>", "<City>", "<Creditcard>", "<Month>" and "<Year>"
+            And Click on Purchase button
+        Then Verify max-length of "<Creditcard>" field & An error message related to max-length Creditcard display "The maximum length of Creditcard is 19 characters!!"
+    Examples:
+        |productname| Name | Country | City | Creditcard | Month | Year |
+        |Nokia lumia 1520| Tester | Vietnam 1256 | Ho Chi Minh City| 5261 4122 3000 9094 123 | 09 | 2024 |
+
+    Scenario Outline: Validation max-length of Month field must NOT 2 characters and only allow number
+        Given The cart has a product as "<productname>"
+            And Navigate to the Cart screen
+        Then The table display the row "<productname>" and the column display correctly
+            And The total price is displayed accurately
+        When Click on Place Order button
+        Then The Place order pop-up is opened
+            And The pop-up displays include infor correctly
+        When Input mandatory fields "<Name>", "<Country>", "<City>", "<Creditcard>", "<Month>" and "<Year>"
+            And Click on Purchase button
+        Then Verify "<Month>" field & An error message Month display "The maximum length of Month is 2 characters and only allow number!!"
+    Examples:
+        |productname| Name | Country | City | Creditcard | Month | Year |
+        |Nokia lumia 1520| Tester | Vietnam 1256 | Ho Chi Minh City| 5261 4122 3000 9094 | 091 | 2024 |
+        |Nokia lumia 1520| Tester | Vietnam 1256 | Ho Chi Minh City| 5261 4122 3000 9094 | bc | 2024 |
+
+    Scenario Outline: Validation max-length of Year field must NOT 4 characters only allow number
+        Given The cart has a product as "<productname>"
+            And Navigate to the Cart screen
+        Then The table display the row "<productname>" and the column display correctly
+            And The total price is displayed accurately
+        When Click on Place Order button
+        Then The Place order pop-up is opened
+            And The pop-up displays include infor correctly
+        When Input mandatory fields "<Name>", "<Country>", "<City>", "<Creditcard>", "<Month>" and "<Year>"
+            And Click on Purchase button
+        Then Verify "<Year>" field & An error message Year display "The maximum length of Month is 4 characters and only allow number!!"
+    Examples:
+        |productname| Name | Country | City | Creditcard | Month | Year |
+        |Nokia lumia 1520| Tester | Vietnam 1256 | Ho Chi Minh City| 5261 4122 3000 9094 | 09 | 20245 |
+        |Nokia lumia 1520| Tester | Vietnam 1256 | Ho Chi Minh City| 5261 4122 3000 9094 | 09 | 202@ |
