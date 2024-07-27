@@ -209,21 +209,6 @@ Feature: Check all element at the cart screen
         |productname| Name | Country | City | Creditcard | Month | Year |
         |Nokia lumia 1520| Tester 1256 barement abca Poker Num | Vietnam | Ho Chi Minh City | 0254| 09 | 2024 |
 
-    Scenario Outline: Validation max-length of Name field must NOT 30 characters
-        Given The cart has a product as "<productname>"
-            And Navigate to the Cart screen
-        Then The table display the row "<productname>" and the column display correctly
-            And The total price is displayed accurately
-        When Click on Place Order button
-        Then The Place order pop-up is opened
-            And The pop-up displays include infor correctly
-        When Input mandatory fields "<Name>", "<Country>", "<City>", "<Creditcard>", "<Month>" and "<Year>"
-            And Click on Purchase button
-        Then Verify max-length of "<Name>" field & An error message related to max-length Name display "The maximum length of Name is 30 characters!!"
-    Examples:
-        |productname| Name | Country | City | Creditcard | Month | Year |
-        |Nokia lumia 1520| Tester 1256 barement abca Poker Num | Vietnam | Ho Chi Minh City | 0254| 09 | 2024 |
-
     Scenario Outline: Validation max-length of Country field must NOT 30 characters
         Given The cart has a product as "<productname>"
             And Navigate to the Cart screen
