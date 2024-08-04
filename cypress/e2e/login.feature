@@ -5,6 +5,7 @@ Background: General Steps
   Given Navigate to the Home Page screen
 
     ##TEST CASE FOR UI ELEMENTS
+    #LG_001
     Scenario: Verify that the elements display sucess when user open Login Popup
       When Click Login item on navbar
       Then The Login popup is opened
@@ -15,6 +16,7 @@ Background: General Steps
         And The x icon at login popup is visible
 
     ##TEST CASE FOR FUNC LOGIN phattest123
+    #LG_002, LG_003, LG_004
     Scenario Outline: Verify that the user can login successfully with valid username and password
         When Click Login item on navbar
             And Input valid "<username>" and "<password>" fields on Login popup
@@ -24,7 +26,7 @@ Background: General Steps
         | username | password |
         | phattest123  | phattest123  |
         | luan#htl$ | 123x#$ |
-
+    #LG_005
     Scenario Outline: Verify that the user can NOT login with username is NOT existed
         When Click Login item on navbar
             And Input invalid "<username>" and "<password>" fields on Login popup
@@ -33,7 +35,7 @@ Background: General Steps
     Examples:
         | username | password |
         | phattest789  | tester  |
-
+    #LG_006
     Scenario Outline: Verify that the user can NOT login with password is invalid
         When Click Login item on navbar
             And Input valid "<username>" and invalid "<password>" fields on Login popup
@@ -42,7 +44,7 @@ Background: General Steps
     Examples:
         | username | password |
         | phattest123  | tester  |
-
+    #LG_007, LG_008, LG_009
     Scenario Outline: Verify that the user can NOT login with empty/blank username or password
         When Click Login item on navbar
             And Input "<username>" and "<password>" fields on Login popup
@@ -53,22 +55,21 @@ Background: General Steps
         | phattest123  |  |
         |  | phattest123 |
         |  |  |
-    
-
     ##TEST CASE FOR CLOSE POPUP
+    #LG_010
     Scenario Outline: Verify that the user can close Login Popup by clicking Close button
         When Click Login item on navbar
             And Input "<username>" and "<password>" fields on Login popup
             And Click Close button on Login popup
         Then The Login popup is closed successfully
-
+    #LG_011
     Scenario Outline: Verify that the user can close Login Popup by clicking x icon
         When Click Login item on navbar
             And Input "<username>" and "<password>" fields on Login popup
             And Click X icon on Login popup
         Then The Login popup is closed successfully
-
     ##TEST CASE FOR LOGOUT FUNCTION
+    #LG_013
     Scenario Outline: Verify that the user can login successfully with valid username and password
         When Click Login item on navbar
             And Input valid "<username>" and "<password>" fields on Login popup

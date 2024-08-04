@@ -5,6 +5,7 @@ Background: General Steps
   Given Navigate to the Home Page screen
 
     ##TEST CASE FOR UI ELEMENTS
+    #SU_001
     Scenario: Verify that the elements display sucess when user open Signup Popup
       When Click Signup item on navbar
       Then The Signup popup is opened
@@ -15,6 +16,7 @@ Background: General Steps
         And The x icon at Signup popup is visible
 
     ##TEST CASE FOR FUNC Signup phattest123
+    #SU_002, SU_003
     Scenario Outline: Verify that the user can Signup successfully with valid username and password
         When Click Signup item on navbar
             And Input "<username>" and "<password>" fields on Signup popup
@@ -22,9 +24,8 @@ Background: General Steps
         Then A success message displays "Sign up successful."
         Examples:
         | username | password |
-        | phattest456  | phattest456  |
-        | phat#htl$ | 123x#$ |
-
+        | phat7867# | 123x#$ |
+    #SU_004
     Scenario Outline: Verify that the user can NOT Signup with username is existed
         When Click Signup item on navbar
             And Input "<username>" and "<password>" fields on Signup popup
@@ -33,7 +34,7 @@ Background: General Steps
         Examples:
         | username | password |
         | phattest123  | a  |
-
+    #SU_005, #SU_006, #SU_007
     Scenario Outline: Verify that the user can NOT Signup with empty/blank username or password
         When Click Signup item on navbar
             And Input "<username>" and "<password>" fields on Signup popup
@@ -46,6 +47,7 @@ Background: General Steps
         |||
     
     ##TEST CASE FOR VALIDATION
+    #SU_008
     Scenario Outline: Validation the Username field must NOT exceed 20 characters
         When Click Signup item on navbar
             And Input "<username>" and "<password>" fields on Signup popup
@@ -54,7 +56,7 @@ Background: General Steps
         Examples:
         |username|password|
         |truongdaihoctonducthang|123456|
-
+    #SU_009
     Scenario Outline: Validation the password field must NOT exceed 8 characters
         When Click Signup item on navbar
             And Input "<username>" and "<password>" fields on Signup popup
@@ -64,6 +66,7 @@ Background: General Steps
         |username|password|
         |phat2000|12345686245|
     ##TEST CASE FOR CLOSE POPUP
+    #SU_010
     Scenario Outline: Verify that the user can close Signup Popup by clicking Close button
         When Click Signup item on navbar
             And Input "<username>" and "<password>" fields on Signup popup
@@ -72,7 +75,7 @@ Background: General Steps
         Examples:
         |username|password|
         |phat2000|12345686245|
-
+    #SU_011
     Scenario Outline: Verify that the user can close Signup Popup by clicking x icon
         When Click Signup item on navbar
             And Input "<username>" and "<password>" fields on Signup popup

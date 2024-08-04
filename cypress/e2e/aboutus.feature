@@ -3,7 +3,7 @@ Feature: Check About us pop-up
 
 Background: General Steps
   Given Navigate to the Home Page screen
-
+    #AU_001
     Scenario: Verify that the elements display sucess when user open About us Popup
         When Click About us item on navbar
         Then The About us popup is opened
@@ -11,12 +11,13 @@ Background: General Steps
             And Video display at about us popup success
             And The Close button at about us popup is visible
             And The x icon at about us popup is visible
-    
+    #AU_007
     Scenario: Verify that the user can close pop-up by click Close button
         When Click About us item on navbar
         Then The About us popup is opened
         When Click Close button at about us popup
         Then The About us popup is closed
+    #AU_008    
     Scenario: Verify that the user can close pop-up by click x icon
         When Click About us item on navbar
         Then The About us popup is opened

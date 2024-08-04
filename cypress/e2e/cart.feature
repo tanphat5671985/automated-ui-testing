@@ -2,28 +2,29 @@ Feature: Check all element at the cart screen
   I want to check about the UI, function and data display at the Cart screen
 
 ###TEST CASE FOR HEADER
+    #HP_001
     Scenario: Verify that the header displays correctly
         Given Navigate to the Cart screen
         Then The title of the page displayed with the logo and brand in the tab browser
             And The logo and the brand on the header displays on the left of the page correctly
             And The 6 items on the navbar displayed sequentially and contain hyperlink
-
+    #HP_002
     Scenario: Verify that the user can redirect to Home Page by clicking the logo/brand at the header
         Given Navigate to the Cart screen
         When Click on Logo and Brand on the header
         Then The screen is re-directed to Home Page
-
+    #HP_003
     Scenario: Verify that the item in the navbar is highlighted when the user hover
         Given Navigate to the Cart screen
         When Hover a item on the navbar
         Then The item being hovered is highlighted
-
 ###TEST CASE FOR FOOTER
+    #HP_004
     Scenario: Verify that the footer displays correctly at the bottom
         Given Navigate to the Cart screen
         Then The 3 columns display sequentially information
             And The Brand Licensing displays with 'Copyright © Product Store 2017'
-
+    #HP_005
     Scenario: Verify that the information on the 3 columns footer displayed accurately
         Given Navigate to the Cart screen
         Then The 3 columns display sequentially information
@@ -34,13 +35,14 @@ Feature: Check all element at the cart screen
         |Phone: +440 123456|
         |Email: demo@blazemeter.com|
             And The Logo and the Brand is displayed correctly
-
+    #HP_006
     Scenario: Verify user can NOT click any item on the footer   
         Given Navigate to the Cart screen
         When Click on any the field on the footer
         Then NO any action about redirect or reload
 
-###TEST CASE TABLE 
+###TEST CASE TABLE
+    #CT_001
     Scenario Outline: Verify that the UI elements display correctly when switch to Cart screen and the cart has a product
         Given The cart has a product as "<productname>"
             And Navigate to the Cart screen
@@ -51,7 +53,7 @@ Feature: Check all element at the cart screen
     Examples:
         |productname|
         |Sony xperia z5|
-
+    #CT_002
     Scenario Outline: Verify that the UI elements display correctly when switch to Cart screen and the cart has multiple products
         Given The cart has multiple products as "<productname1>" and "<productname2>"
             And Navigate to the Cart screen
@@ -62,7 +64,7 @@ Feature: Check all element at the cart screen
     Examples:
         |productname1|productname2|
         |Sony xperia z5|Iphone 6 32gb|
-
+    #CT_003
     Scenario: Verify that the UI elements display correctly when switch to Cart screen and the cart has NOT any product
         Given Navigate to the Cart screen
         Then The title 'Products' display above the table and on the left the page
@@ -70,6 +72,7 @@ Feature: Check all element at the cart screen
             And The title 'Total' display above the Place Order button and value is blanked
             And The Place Order button displays and enable with green color
 ###TEST CASE PURCHASE BUTTON
+    #CT_004
     Scenario Outline: Verify that the user purchase a product in the cart
         Given The cart has a product as "<productname>"
             And Navigate to the Cart screen
@@ -88,7 +91,7 @@ Feature: Check all element at the cart screen
         |productname| Name | Creditcard |
         |Nokia lumia 1520| Tester | 110 |
         |Samsung galaxy s6| ng4+_-+ | eg1+ |
-
+    #CT_005
     Scenario Outline: Verify that the user purchase a product with input full information
         Given The cart has a product as "<productname>"
             And Navigate to the Cart screen
@@ -102,12 +105,11 @@ Feature: Check all element at the cart screen
         Then The success message displays correctly <Name> and <Creditcard>
         When Click on OK button
         Then The message disappears and then the system redirects to home page screen
-    
     Examples:
         |productname| Name | Country | City | Creditcard | Month | Year |
         |Nokia lumia 1520| Tester | Vietnam | Ho Chi Minh City | 0254| 09 | 2024 |
         |Samsung galaxy s6| Tester123 | Viet nam | Ho Chi Minh City | 21hgfd| 09 | 2024 |
-        
+    #CT_006  
     Scenario Outline: Verify that the user purchase multiple product in the cart
         Given The cart has multiple products as "<productname1>" and "<productname2>"
             And Navigate to the Cart screen
@@ -121,12 +123,11 @@ Feature: Check all element at the cart screen
         Then The success message displays correctly <Name> and <Creditcard>
         When Click on OK button
         Then The message disappears and then the system redirects to home page screen
-    
     Examples:
         |productname1|productname2| Name | Creditcard |
         |Nokia lumia 1520|Nokia lumia 1520| Tester | 110 |
         |Nexus 6|Nokia lumia 1520| eng124+_-+ | e+_-+ |
-    
+    #CT_007
     Scenario Outline: Verify that the user purchase without any product in the cart
         Given Navigate to the Cart screen
         Then The table display the row and the column display correctly with empty product
@@ -137,7 +138,7 @@ Feature: Check all element at the cart screen
     Examples:
         |productname1|productname2| Name | Creditcard |
         |Nokia lumia 1520|Nokia lumia 1520| Tester | 110 |
-
+    #CT_008
     Scenario Outline: Verify that the user purchase a product in the cart but NOT fill out mandatory fields
         Given The cart has a product as "<productname>"
             And Navigate to the Cart screen
@@ -154,7 +155,7 @@ Feature: Check all element at the cart screen
         |HTC One M9|test||
         |Sony vaio i5||test|
         |Sony vaio i5|||
-
+    #CT_009
     Scenario Outline: Verify that the user order a product in the cart but NO click purchase
         Given The cart has a product as "<productname>"
             And Navigate to the Cart screen
@@ -169,6 +170,7 @@ Feature: Check all element at the cart screen
         |productname|
         |Sony xperia z5|
 ###TEST CASE DELETE A PRODUCT
+    #CT_010
     Scenario Outline: Verify that the user can delete a product in the cart
         Given The cart has multiple products as "<productname1>" and "<productname2>"
             And Navigate to the Cart screen
@@ -180,7 +182,7 @@ Feature: Check all element at the cart screen
     Examples:
         |productname1|productname2|
         |Sony xperia z5|Iphone 6 32gb|
-
+    #CT_011
     Scenario Outline: Verify that the user can delete a product to blank/empty cart
         Given The cart has a product as "<productname>"
             And Navigate to the Cart screen
@@ -194,6 +196,7 @@ Feature: Check all element at the cart screen
         |Sony xperia z5|
 
     ###TEST CASE FOR VALIDATION ON PLACE ORDER POPUP
+    #CT_012
     Scenario Outline: Validation max-length of Name field must NOT 30 characters
         Given The cart has a product as "<productname>"
             And Navigate to the Cart screen
@@ -208,7 +211,7 @@ Feature: Check all element at the cart screen
     Examples:
         |productname| Name | Country | City | Creditcard | Month | Year |
         |Nokia lumia 1520| Tester 1256 barement abca Poker Num | Vietnam | Ho Chi Minh City | 0254| 09 | 2024 |
-
+    #CT_013
     Scenario Outline: Validation max-length of Country field must NOT 30 characters
         Given The cart has a product as "<productname>"
             And Navigate to the Cart screen
@@ -223,7 +226,7 @@ Feature: Check all element at the cart screen
     Examples:
         |productname| Name | Country | City | Creditcard | Month | Year |
         |Nokia lumia 1520| Tester | Vietnam 1256 barement abca Poker Number 156a | Ho Chi Minh City | 0254| 09 | 2024 |
-
+    #CT_014
     Scenario Outline: Validation max-length of City field must NOT 30 characters
         Given The cart has a product as "<productname>"
             And Navigate to the Cart screen
@@ -238,7 +241,7 @@ Feature: Check all element at the cart screen
     Examples:
         |productname| Name | Country | City | Creditcard | Month | Year |
         |Nokia lumia 1520| Tester | Vietnam 1256 | Ho Chi Minh City barement abca Poker Number 156a | 0254| 09 | 2024 |
-
+    #CT_015
     Scenario Outline: Validation max-length of Creditcard field must NOT 19 characters
         Given The cart has a product as "<productname>"
             And Navigate to the Cart screen
@@ -253,7 +256,7 @@ Feature: Check all element at the cart screen
     Examples:
         |productname| Name | Country | City | Creditcard | Month | Year |
         |Nokia lumia 1520| Tester | Vietnam 1256 | Ho Chi Minh City| 5261 4122 3000 9094 123 | 09 | 2024 |
-
+    #CT_016
     Scenario Outline: Validation max-length of Month field must NOT 2 characters and only allow number
         Given The cart has a product as "<productname>"
             And Navigate to the Cart screen
@@ -269,7 +272,7 @@ Feature: Check all element at the cart screen
         |productname| Name | Country | City | Creditcard | Month | Year |
         |Nokia lumia 1520| Tester | Vietnam 1256 | Ho Chi Minh City| 5261 4122 3000 9094 | 091 | 2024 |
         |Nokia lumia 1520| Tester | Vietnam 1256 | Ho Chi Minh City| 5261 4122 3000 9094 | bc | 2024 |
-
+    #CT_017
     Scenario Outline: Validation max-length of Year field must NOT 4 characters only allow number
         Given The cart has a product as "<productname>"
             And Navigate to the Cart screen

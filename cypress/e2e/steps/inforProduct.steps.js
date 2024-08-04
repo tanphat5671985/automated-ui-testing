@@ -6,6 +6,9 @@ import cartPage from '../../pages/cartPage';
 Given('Navigate to the Home Page screen', () => {
     cy.visit('/');
 });
+Given('Navigate to the first Information Product screen', () => {
+    cy.visit('https://demoblaze.com/prod.html?idp_=1');
+})
 
 When('Select a {string}', (productname) => {
     //homePage.selectAProduct(productname);
