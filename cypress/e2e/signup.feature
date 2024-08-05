@@ -24,7 +24,7 @@ Background: General Steps
         Then A success message displays "Sign up successful."
         Examples:
         | username | password |
-        | phat7867# | 123x#$ |
+        | phat7868# | 123x#$ |
     #SU_004
     Scenario Outline: Verify that the user can NOT Signup with username is existed
         When Click Signup item on navbar

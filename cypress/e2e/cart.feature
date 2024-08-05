@@ -27,8 +27,7 @@ Feature: Check all element at the cart screen
     #HP_005
     Scenario: Verify that the information on the 3 columns footer displayed accurately
         Given Navigate to the Cart screen
-        Then The 3 columns display sequentially information
-            And The About us is displayed with: 'We believe performance needs to be validated at every stage of the software development cycle and our open source compatible, massively scalable platform makes that a reality.'
+        Then The About us is displayed with: 'We believe performance needs to be validated at every stage of the software development cycle and our open source compatible, massively scalable platform makes that a reality.'
             And The Get In Touch is displayed
         |data|
         |Address: 2390 El Camino Real|

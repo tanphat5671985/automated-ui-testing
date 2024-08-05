@@ -52,13 +52,18 @@ class commonPage {
     static verify3columnsAtFooter = () => {
         cy.get(COLUMN_FOOTER).eq(0).should('contain.text','About Us')
         //verify not exist __
+        cy.get('.caption > h4').eq(0).then($el => {
+            const afterContent = window.getComputedStyle($el[0], '::after').getPropertyValue('content');
+            expect(afterContent).to.eq('none');
+            //expect(afterContent).to.eq('""'); //replace none = "" => PASSED
+        })
         cy.get(COLUMN_FOOTER).eq(1).should('contain.text','Get in Touch')
         //verify not exist __
-        // cy.get('.caption > h4').eq(1).then($el => {
-        //     const afterContent = window.getComputedStyle($el[0], '::after').getPropertyValue('content');
-        //     expect(afterContent).to.eq('none');
-        //     //expect(afterContent).to.eq('""'); //replace none = "" => PASSED
-        // })
+        cy.get('.caption > h4').eq(1).then($el => {
+            const afterContent = window.getComputedStyle($el[0], '::after').getPropertyValue('content');
+            expect(afterContent).to.eq('none');
+            //expect(afterContent).to.eq('""'); //replace none = "" => PASSED
+        })
         cy.get(COLUMN_FOOTER).eq(2).should('contain.text','PRODUCT STORE')
     }
     static verifyLicensing = (data) => {
